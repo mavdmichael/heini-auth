@@ -1,5 +1,6 @@
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
+import { authenticator } from "~/lib/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -8,12 +9,16 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
+export async function loader({ request }: LoaderArgs) {
+  return await authenticator.isAuthenticated(request);
+}
+
 export default function Index() {
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div>
         <motion.div initial={{ y: -100 }} animate={{ y: 0 }}>
-          <h1>Welcome to Remix</h1>
+          <h1>Whoop whoop, du är inloggad!</h1>
           <ul>
             <li>
               <a
