@@ -1,4 +1,5 @@
 import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import { Form, useLoaderData } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { authenticator } from "~/lib/auth.server";
 
@@ -14,6 +15,7 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function Index() {
+  const user = useLoaderData<typeof loader>();
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div>
@@ -44,6 +46,11 @@ export default function Index() {
               </a>
             </li>
           </ul>
+          {user && (
+            <Form method="post" action="/actions/logout" className="mt-8">
+              <button type="submit">Logga ut</button>
+            </Form>
+          )}
         </motion.div>
       </div>
     </div>
