@@ -9,6 +9,9 @@ interface Props {
 export const Buttons: FC<Props> = ({ memberOf }) => {
   return (
     <div className="flex flex-row space-x-4 items-center">
+      <Link to="/" className="btn">
+        Hem
+      </Link>
       {ldapGate("SSLVPN_CONSULT_F77", memberOf) ? (
         <Link to="/ssl" className="btn">
           SSL
@@ -17,14 +20,14 @@ export const Buttons: FC<Props> = ({ memberOf }) => {
         <span className="text-red-400">SSL</span>
       )}
       {ldapGate("WEB-DEV_WORDPRESS_ADMINISTRATOR", memberOf) ? (
-        <Link to="/ssl" className="btn">
+        <Link to="/wordpress" className="btn">
           Wordpress
         </Link>
       ) : (
         <span className="text-red-400">Wordpress</span>
       )}
       {ldapGate("LUNET_BEREDSKAP", memberOf) ? (
-        <Link to="/ssl" className="btn">
+        <Link to="/beredskap" className="btn">
           Beredskap
         </Link>
       ) : (
