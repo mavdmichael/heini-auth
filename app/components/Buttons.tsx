@@ -8,7 +8,7 @@ interface Props {
 
 export const Buttons: FC<Props> = ({ memberOf }) => {
   return (
-    <div className="flex flex-row space-x-4 items-center mt-8">
+    <div className="flex flex-row space-x-4 items-center">
       {ldapGate("SSLVPN_CONSULT_F77", memberOf) ? (
         <Link to="/ssl" className="btn">
           SSL

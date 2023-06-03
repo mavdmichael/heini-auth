@@ -41,6 +41,9 @@ export default function Index() {
               );
             })}
           </ul>
+          <div className="text-slate-400 text-xs uppercase mt-8">
+            Du har tillgång till:
+          </div>
           <Buttons memberOf={memberOf} />
         </motion.div>
       </div>
