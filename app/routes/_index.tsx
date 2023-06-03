@@ -1,6 +1,8 @@
 import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { motion } from "framer-motion";
+import { HiCheck } from "react-icons/hi";
+import { Buttons } from "~/components/Buttons";
 import { authenticator } from "~/lib/auth.server";
 
 export const meta: V2_MetaFunction = () => {
@@ -16,41 +18,30 @@ export async function loader({ request }: LoaderArgs) {
 
 export default function Index() {
   const user = useLoaderData<typeof loader>();
+  const memberOf = user?.memberOf ?? [];
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full py-40 flex justify-center items-center">
       <div>
         <motion.div initial={{ y: -100 }} animate={{ y: 0 }}>
-          <h1>Whoop whoop, du är inloggad!</h1>
+          <h1 className="text-2xl font-thin mb-8">
+            Whoop whoop, du är inloggad!
+          </h1>
+          <span className="font-medium">Dina grupper;</span>
           <ul>
-            <li>
-              <a
-                target="_blank"
-                href="https://remix.run/tutorials/blog"
-                rel="noreferrer"
-              >
-                15m Quickstart Blog Tutorial
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                href="https://remix.run/tutorials/jokes"
-                rel="noreferrer"
-              >
-                Deep Dive Jokes App Tutorial
-              </a>
-            </li>
-            <li>
-              <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-                Remix Docs
-              </a>
-            </li>
+            {memberOf.map((group) => {
+              const name = group.split(",")[0].split("=")[1];
+              return (
+                <li
+                  key={group}
+                  className="flex flex-row space-x-2 my-1 items-center"
+                >
+                  <HiCheck size={24} />
+                  <span>{name}</span>
+                </li>
+              );
+            })}
           </ul>
-          {user && (
-            <Form method="post" action="/actions/logout" className="mt-8">
-              <button type="submit">Logga ut</button>
-            </Form>
-          )}
+          <Buttons memberOf={memberOf} />
         </motion.div>
       </div>
     </div>
