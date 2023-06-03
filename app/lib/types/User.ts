@@ -1,4 +1,8 @@
 export type User = {
-  username: string;
-  password: string;
+  dn: string;
+  cn: string;
+  displayName: string;
+  memberOf: string[];
+  sAMAccountName: string;
+  mail: string;
 };
